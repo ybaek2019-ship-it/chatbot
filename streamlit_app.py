@@ -9,11 +9,11 @@ st.write(
 )
 
 # Load OpenAI API key from secrets.toml
-try:
-    openai_api_key = st.secrets["OPENAI_API_KEY"]
-except KeyError:
+if "OPENAI_API_KEY" not in st.secrets:
     st.error("❌ OpenAI API 키가 설정되지 않았습니다. .streamlit/secrets.toml 파일을 확인해주세요.")
     st.stop()
+
+openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 # Create an OpenAI client.
 client = OpenAI(api_key=openai_api_key)
